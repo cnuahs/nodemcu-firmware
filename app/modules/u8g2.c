@@ -565,6 +565,21 @@ static int lu8g2_updateDisplayArea( lua_State *L )
   return 0;
 }
 
+static int lu8g2_getDisplayHeight( lua_State *L )
+{
+  GET_U8G2();
+
+  lua_pushinteger( L, u8g2_GetDisplayHeight( u8g2 ) );
+  return 1;
+}
+
+static int lu8g2_getDisplayWidth( lua_State *L )
+{
+  GET_U8G2();
+
+  lua_pushinteger( L, u8g2_GetDisplayWidth( u8g2 ) );
+  return 1;
+}
 
 LROT_BEGIN(lu8g2_display, NULL, LROT_MASK_INDEX)
   LROT_TABENTRY(  __index, lu8g2_display )
@@ -609,6 +624,8 @@ LROT_BEGIN(lu8g2_display, NULL, LROT_MASK_INDEX)
   LROT_FUNCENTRY( setPowerSave, lu8g2_setPowerSave )
   LROT_FUNCENTRY( updateDisplay, lu8g2_updateDisplay )
   LROT_FUNCENTRY( updateDisplayArea, lu8g2_updateDisplayArea )
+  LROT_FUNCENTRY( getDisplayHeight, lu8g2_getDisplayHeight )
+  LROT_FUNCENTRY( getDisplayWidth, lu8g2_getDisplayWidth )
 LROT_END(lu8g2_display, NULL, LROT_MASK_INDEX)
 
 
