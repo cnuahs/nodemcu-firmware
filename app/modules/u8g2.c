@@ -65,6 +65,24 @@ static int lu8g2_drawBox( lua_State *L )
   return 0;
 }
 
+static int lu8g2_drawButtonUTF8( lua_State *L )
+{
+  GET_U8G2();
+  int stack = 1;
+
+  int x = luaL_checkint( L, ++stack );
+  int y = luaL_checkint( L, ++stack );
+  int flags = luaL_checkint( L, ++stack );
+  int w = luaL_checkint( L, ++stack );
+  int pad_h = luaL_checkint( L, ++stack );
+  int pad_v = luaL_checkint( L, ++stack );
+  const char *str = luaL_checkstring( L, ++stack );
+
+  u8g2_DrawButtonUTF8( u8g2, x, y, flags, w, pad_h, pad_v, str );
+
+  return 0;
+}
+
 static int lu8g2_drawCircle( lua_State *L )
 {
   GET_U8G2();
@@ -585,6 +603,7 @@ LROT_BEGIN(lu8g2_display, NULL, LROT_MASK_INDEX)
   LROT_TABENTRY(  __index, lu8g2_display )
   LROT_FUNCENTRY( clearBuffer, lu8g2_clearBuffer )
   LROT_FUNCENTRY( drawBox, lu8g2_drawBox )
+  LROT_FUNCENTRY( drawButtonUTF8, lu8g2_drawButtonUTF8 )
   LROT_FUNCENTRY( drawCircle, lu8g2_drawCircle )
   LROT_FUNCENTRY( drawDisc, lu8g2_drawDisc )
   LROT_FUNCENTRY( drawEllipse, lu8g2_drawEllipse )
@@ -832,6 +851,16 @@ LROT_BEGIN(lu8g2, NULL, 0)
 #define U8G2_FONT_TABLE_ENTRY(font) LROT_LUDENTRY(font, u8g2_ ## font)
   U8G2_FONT_TABLE
   //
+  LROT_NUMENTRY( BTN_BW0, U8G2_BTN_BW0 )
+  LROT_NUMENTRY( BTN_BW1, U8G2_BTN_BW1 )
+  LROT_NUMENTRY( BTN_BW2, U8G2_BTN_BW2 )
+  LROT_NUMENTRY( BTN_BW3, U8G2_BTN_BW3 )
+  LROT_NUMENTRY( BTN_SHADOW0, U8G2_BTN_SHADOW0 )
+  LROT_NUMENTRY( BTN_SHADOW1, U8G2_BTN_SHADOW1 )
+  LROT_NUMENTRY( BTN_SHADOW2, U8G2_BTN_SHADOW2 )
+  LROT_NUMENTRY( BTN_INV, U8G2_BTN_INV )
+  LROT_NUMENTRY( BTN_HCENTER, U8G2_BTN_HCENTER )
+  LROT_NUMENTRY( BTN_XFRAME, U8G2_BTN_XFRAME )
   LROT_NUMENTRY( DRAW_UPPER_RIGHT, U8G2_DRAW_UPPER_RIGHT )
   LROT_NUMENTRY( DRAW_UPPER_LEFT, U8G2_DRAW_UPPER_LEFT )
   LROT_NUMENTRY( DRAW_LOWER_RIGHT, U8G2_DRAW_LOWER_RIGHT )
